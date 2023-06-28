@@ -1,36 +1,27 @@
-# INSTALLABLES
+# AngularBoilerplate
 
-- [Install VSCODE](https://code.visualstudio.com/download/)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.1.
 
-- [Ionic](https://ionicframework.com/docs/intro/cli)
+## Development server
 
-# Folder Structure
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-- Core/ - Anything we would load only once in an application like header component, footer component, auth service etc or anything with global effect like auth guard, http interceptors to handle global error responses.
-  - Services/
-    - auth.service.ts
-  - Gaurds/
-  - Interceptors/
-    - http.interceptor.ts
-  - core.module.ts
-- Shared/ - Anything that will be used across your application
-  - Components/
-    - Page/
-    - Sub-page/
-    - Element/
-  - Pipes/
-  - Directives/
-  - Services/
-  - shared.module.ts
-- Views/ - Each folder within this folder is a feature module.
-  - Feature Module 1/
-    - Components/
-      - Page/
-      - Sub-Page/
-      - Element/
-    - Services/
-    - Pipes/
-    - Directives/
-    - feature1.module.ts
-  - Feature Module 2/
-    - feature2.module.ts
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

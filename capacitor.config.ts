@@ -1,12 +1,12 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'ionic.angular',
-  appName: 'ionic-angular',
-  webDir: 'www',
+  appId: 'com.casho.app',
+  appName: 'angular-boilerplate',
+  webDir: 'dist/angular-boilerplate',
   server: {
-    androidScheme: 'https'
-  }
+    androidScheme: 'http',
+  },
 };
 
 export default config;
