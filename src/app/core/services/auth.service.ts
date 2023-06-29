@@ -21,16 +21,22 @@ export class AuthService {
   ) {}
 
   login(data: any): Observable<boolean> {
-    return this._http.post<any>(`${environment.baseUrl}`, data).pipe(
-      tap((tokens) => this.loginUser(data, tokens)),
-      map((res) => {
-        return res;
-      }),
-      catchError((error) => {
-        alert(error.error);
-        return of(false);
-      })
-    );
+    return this._http
+      .post<any>(`${environment.baseUrl}api/ashura/token/`, data)
+      .pipe(
+        tap((tokens) => this.loginUser(data, tokens)),
+        map((res) => {
+          return res;
+        }),
+        catchError((error) => {
+          alert(error.error);
+          return of(false);
+        })
+      );
+  }
+
+  getLoggedInUsername() {
+    return this.loggedUser;
   }
 
   logout() {
@@ -44,8 +50,8 @@ export class AuthService {
 
   refreshToken() {
     return this._http
-      .post<any>(`${environment.baseUrl}`, {
-        refreshToken: this.getRefreshToken(),
+      .post<any>(`${environment.baseUrl}api/ashura/token/refresh/`, {
+        refresh: this.getRefreshToken(),
       })
       .pipe(
         tap((tokens) => {
@@ -78,8 +84,8 @@ export class AuthService {
   }
 
   private storeTokens(tokens: any) {
-    this._storageService.setToken(this.AUTH_TOKEN, tokens.authToken);
-    this._storageService.setToken(this.REFRESH_TOKEN, tokens.refreshToken);
+    this._storageService.setToken(this.AUTH_TOKEN, tokens.access);
+    this._storageService.setToken(this.REFRESH_TOKEN, tokens.refresh);
   }
 
   private removeTokens() {
