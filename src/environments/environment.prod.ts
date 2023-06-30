@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  baseUrl: 'https://dbef-43-242-116-20.ngrok-free.app/',
+  production: true,
 };
