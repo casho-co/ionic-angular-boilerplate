@@ -78,7 +78,7 @@ export class AddTokenInterceptor implements HttpInterceptor {
   }
 }
 
-export const tokenInterceptor = {
+export const TokenInterceptor = {
   provide: HTTP_INTERCEPTORS,
   useClass: AddTokenInterceptor,
   multi: true,

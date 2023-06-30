@@ -29,7 +29,6 @@ export class AuthService {
           return res;
         }),
         catchError((error) => {
-          alert(error.error);
           return of(false);
         })
       );

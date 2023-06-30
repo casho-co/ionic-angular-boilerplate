@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { tokenInterceptor } from './core/intercepter/add-token.interceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TokenInterceptor } from './core/intercepter/add-token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     CoreModule,
   ],
-  providers: [tokenInterceptor],
+  providers: [TokenInterceptor],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
