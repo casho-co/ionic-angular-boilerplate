@@ -21,9 +21,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable()
 export class AddTokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
-    null
-  );
+  #refreshTokenSubject$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(public _authService: AuthService) {}
 
@@ -40,7 +38,7 @@ export class AddTokenInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
         } else {
-          return throwError(error);
+          return throwError(() => error);
         }
       })
     );
@@ -57,17 +55,17 @@ export class AddTokenInterceptor implements HttpInterceptor {
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
-      this.refreshTokenSubject.next(null);
+      this.#refreshTokenSubject$.next(null);
 
       return this._authService.refreshToken().pipe(
         switchMap((token: any) => {
           this.isRefreshing = false;
-          this.refreshTokenSubject.next(token.access);
+          this.#refreshTokenSubject$.next(token.access);
           return next.handle(this.addToken(request, token.access));
         })
       );
     } else {
-      return this.refreshTokenSubject.pipe(
+      return this.#refreshTokenSubject$.pipe(
         filter((token) => token != null),
         take(1),
         switchMap((token) => {
@@ -77,9 +75,3 @@ export class AddTokenInterceptor implements HttpInterceptor {
     }
   }
 }
-
-export const TokenInterceptor = {
-  provide: HTTP_INTERCEPTORS,
-  useClass: AddTokenInterceptor,
-  multi: true,
-};

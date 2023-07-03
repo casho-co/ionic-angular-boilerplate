@@ -8,11 +8,8 @@ export class StorageService {
 
   public isAuthenticated(): boolean {
     return !(
-      window.localStorage['AUTH_TOKEN'] === undefined ||
-      window.localStorage['AUTH_TOKEN'] === null ||
-      window.localStorage['AUTH_TOKEN'] === 'null' ||
-      window.localStorage['AUTH_TOKEN'] === 'undefined' ||
-      window.localStorage['AUTH_TOKEN'] === ''
+      window.localStorage['AUTH_TOKEN'] == undefined ||
+      window.localStorage['AUTH_TOKEN'] == null
     );
   }
 

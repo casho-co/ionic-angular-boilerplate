@@ -12,39 +12,24 @@ import { Token } from '@angular/compiler';
 export class AuthService {
   private readonly AUTH_TOKEN = 'AUTH_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-  private loggedUser?: string;
 
   constructor(
     private _http: HttpClient,
-    private _router: Router,
     private _storageService: StorageService
   ) {}
 
-  login(data: any): Observable<boolean> {
+  getToken(data: any): Observable<boolean> {
     return this._http
       .post<any>(`${environment.baseUrl}api/ashura/token/`, data)
       .pipe(
-        tap((tokens) => this.loginUser(data, tokens)),
+        tap((tokens) => this.storeTokens(tokens)),
         map((res) => {
-          return res;
+          return true;
         }),
         catchError((error) => {
           return of(false);
         })
       );
-  }
-
-  getLoggedInUsername() {
-    return this.loggedUser;
-  }
-
-  logout() {
-    this.loggedUser = undefined;
-    this.logoutUser();
-  }
-
-  isLoggedIn() {
-    return !!this.getAuthToken();
   }
 
   refreshToken() {
@@ -57,21 +42,9 @@ export class AuthService {
           this.storeTokens(tokens);
         }),
         catchError((error) => {
-          this.logoutUser();
           return of(false);
         })
       );
-  }
-
-  private loginUser(username?: string, tokens?: Token) {
-    this.loggedUser = username;
-    this.storeTokens(tokens);
-  }
-
-  private logoutUser() {
-    this.loggedUser = undefined;
-    this.removeTokens();
-    this._router.navigate(['/']);
   }
 
   getAuthToken() {

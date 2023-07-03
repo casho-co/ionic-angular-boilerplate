@@ -13,56 +13,19 @@ import { StorageService } from './core/services/storage.service';
 })
 export class AppComponent {
   title = 'angular-boilerplate';
-  loginForm!: FormGroup;
-  isLoggedIn: boolean = false;
-  username?: string;
 
   constructor(
-    private _formBuilder: FormBuilder,
     private _http: HttpClient,
     private _authService: AuthService,
     private _storageService: StorageService
   ) {}
 
-  ngOnInit() {
-    this.username = this._authService.getLoggedInUsername();
-    this.isLoggedIn = this._storageService.isAuthenticated();
-    this.loginForm = this._formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
-
-  login() {
-    const loginDto = {
-      username: this.loginForm.get('username')?.value,
-      password: this.loginForm.get('password')?.value,
-    };
-    this._authService.login(loginDto).subscribe((x) => {
-      console.log(x);
-    });
-  }
-  signUp() {
-    const body = {
-      username: this.loginForm.get('username')?.value,
-      password: this.loginForm.get('password')?.value,
-    };
-    this._http
-      .post(`${environment.baseUrl}api/ashura/createuser/`, body)
-      .subscribe((x) => {
-        console.log(x);
-      });
-  }
-
+  ngOnInit() {}
   test() {
     this._http
       .post(`${environment.baseUrl}api/ashura/test/`, {})
       .subscribe((x) => {
         console.log(x);
       });
-  }
-
-  logout() {
-    this._authService.logout();
   }
 }
