@@ -5,7 +5,6 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
-  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import {
   BehaviorSubject,
