@@ -16,23 +16,21 @@ export class AuthService {
     private _storageService: StorageService
   ) {}
 
-  getToken(data: any): Observable<boolean> {
-    return this._http
-      .post<any>(`${environment.baseUrl}api/ashura/token/`, data)
-      .pipe(
-        tap((tokens) => this.storeTokens(tokens)),
-        map((res) => {
-          return true;
-        }),
-        catchError((error) => {
-          return of(false);
-        })
-      );
+  getToken(): Observable<boolean> {
+    return this._http.post<any>(`${environment.baseUrl}auth/token/`, {}).pipe(
+      tap((tokens) => this.storeTokens(tokens)),
+      map((res) => {
+        return true;
+      }),
+      catchError((error) => {
+        return of(false);
+      })
+    );
   }
 
   refreshToken() {
     return this._http
-      .post<any>(`${environment.baseUrl}api/ashura/token/refresh/`, {
+      .post<any>(`${environment.baseUrl}auth/refresh/`, {
         refresh: this.getRefreshToken(),
       })
       .pipe(

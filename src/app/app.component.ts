@@ -12,18 +12,15 @@ import { StorageService } from './core/services/storage.service';
 export class AppComponent {
   title = 'angular-boilerplate';
 
-  constructor(
-    private _http: HttpClient,
-    private _authService: AuthService,
-    private _storageService: StorageService
-  ) {}
+  constructor(private _http: HttpClient, private _authService: AuthService) {}
 
   ngOnInit() {}
-  test() {
-    this._http
-      .post(`${environment.baseUrl}api/ashura/test/`, {})
-      .subscribe((x) => {
-        console.log(x);
-      });
+  getToken() {
+    this._authService.getToken().subscribe((x) => console.log(x));
+  }
+  testToken() {
+    this._http.post(`${environment.baseUrl}auth/test/`, {}).subscribe((x) => {
+      console.log(x);
+    });
   }
 }
